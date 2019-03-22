@@ -12,106 +12,65 @@
 #define SEG3 GPIO_PIN_14
 #define SEG4 GPIO_PIN_15
 
-void clearseg(void)
+int second = 55;//??????? ?????
+int minute = 44;
+int hours = 8;
+
+const 
+
+void clockTime(int x)//?????????? ????? ????? ???????
 {
-  HAL_GPIO_WritePin(GPIOA, A|B|C|D|E|F|G|DP, GPIO_PIN_RESET);
-}
-void show(int digit) {//????? ?????
-	switch(digit)
+	switch(x)
 	{
 		case 0:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7);
-			HAL_GPIO_WritePin(GPIOSEG, A|B|C|D|E|F, GPIO_PIN_SET);
-                        break;
+			lcdPuts("0");
+			break;
 		}
 		case 1:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_1|GPIO_Pin_2);
-                        HAL_GPIO_WritePin(GPIOSEG, B|C, GPIO_PIN_SET);
+			lcdPuts("1");
 			break;
 		}
 		case 2:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_8);
-                        HAL_GPIO_WritePin(GPIOSEG, A|B|G|E|D, GPIO_PIN_SET);
+			lcdPuts("2");
 			break;
 		}
 		case 3:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_5|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG,A|B|C|D|G , GPIO_PIN_SET);
-                        break;
+			lcdPuts("3");
+			break;
 		}
 		case 4:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_7|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG, F|G|B|C, GPIO_PIN_SET);
-                        break;
+			lcdPuts("4");
+			break;
 		}
 		case 5:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_2|GPIO_Pin_5|GPIO_Pin_7|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG, A|F|G|C|D, GPIO_PIN_SET);
-                        break;
+			lcdPuts("5");
+			break;
 		}
 		case 6:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_2|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG, A|F|G|C|D|E, GPIO_PIN_SET);
-                        break;
+			lcdPuts("6");
+			break;
 		}
 		case 7:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2);
-			HAL_GPIO_WritePin(GPIOSEG, A|B|C, GPIO_PIN_SET);
-                        break;
+			lcdPuts("7");
+			break;
 		}
 		case 8:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG, A|B|C|D|E|F|G, GPIO_PIN_SET);
-                        break;
+			lcdPuts("8");
+			break;
 		}
 		case 9:
 		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_5|GPIO_Pin_7|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG, A|B|C|D|G, GPIO_PIN_SET);
-                        break;
-		}
-		case 10:
-		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG, A|B|C|E|F|G, GPIO_PIN_SET);
-                        break;
-		}
-		case 11:
-		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_2|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG, C|D|E|F|G, GPIO_PIN_SET);
-                        break;
-		}
-		case 12:
-		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_0|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7);
-			HAL_GPIO_WritePin(GPIOSEG, A|D|E|F, GPIO_PIN_SET);
-                        break;
-		}
-		case 13:
-		{
-			//GPIO_SetBits(GPIOSEG, GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_8);
-			HAL_GPIO_WritePin(GPIOSEG, B|C|D|E|G, GPIO_PIN_SET);
-                        break;
-		}
-		case 14:
-		{
-			HAL_GPIO_WritePin(GPIOSEG, A|D|E|F|G, GPIO_PIN_SET);
-                        break;
-		}
-		case 15:
-		{
-			HAL_GPIO_WritePin(GPIOSEG, A|E|F|G, GPIO_PIN_SET);
-                        break;
+			lcdPuts("9");
+			break;
 		}
 	}
 }

@@ -45,6 +45,19 @@ Contact information :
 #define LCD_D1_MASK					GPIO_PIN_1 //0x02u
 #define LCD_D0_MASK					GPIO_PIN_0 //0x01u
 
+#define LCD_RS_Pin GPIO_PIN_0
+#define LCD_RS_GPIO_Port GPIOC
+#define LCD_E_Pin GPIO_PIN_1
+#define LCD_E_GPIO_Port GPIOC
+#define LCD_D4_Pin GPIO_PIN_4
+#define LCD_D4_GPIO_Port GPIOC
+#define LCD_D5_Pin GPIO_PIN_5
+#define LCD_D5_GPIO_Port GPIOC
+#define LCD_D6_Pin GPIO_PIN_6
+#define LCD_D6_GPIO_Port GPIOC
+#define LCD_D7_Pin GPIO_PIN_7
+#define LCD_D7_GPIO_Port GPIOC
+
 #define ENABLE_CYCLE_TIME			1u	/* Minimal value ~ 1us */
 #define AC_UPDATE_TIME				1u	/* Minimal value ~ 4us */
 
