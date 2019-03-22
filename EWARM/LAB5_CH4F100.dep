@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <fileVersion>4</fileVersion>
-    <fileChecksum>693295754</fileChecksum>
+    <fileChecksum>1192656775</fileChecksum>
     <configuration>
         <name>LAB5_CH4F100</name>
         <outputs>
@@ -151,6 +151,7 @@
             <file>$PROJ_DIR$\LAB5_CH4F100\Obj\stm32f1xx_ll_tim.__cstat.et</file>
             <file>$PROJ_DIR$\LAB5_CH4F100\Obj\stm32f1xx_hal_gpio.__cstat.et</file>
             <file>$PROJ_DIR$\LAB5_CH4F100\Obj\stm32f1xx_hal_cortex.__cstat.et</file>
+            <file>$PROJ_DIR$\..\Inc\lcd_cfg.h</file>
         </outputs>
         <file>
             <name>$PROJ_DIR$\..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc.c</name>
@@ -413,10 +414,6 @@
             <name>$PROJ_DIR$\..\Src\stm32f1xx_it.c</name>
             <outputs>
                 <tool>
-                    <name>ICCARM</name>
-                    <file> 95</file>
-                </tool>
-                <tool>
                     <name>__cstat</name>
                     <file> 124</file>
                 </tool>
@@ -428,7 +425,7 @@
             <inputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 71 69 27 46 51 80 114 70 64 55 47 68 61 99 73 102 33 81 49 78 82 86 29 98 125 40 30 45 63 129 52 84 110 105 111 67 118 104 117 60 131 107 112 53 18</file>
+                    <file> 71 69 27 46 51 80 114 70 64 55 47 68 61 99 73 102 33 81 49 78 82 86 29 98 125 40 30 45 63 129 52 84 110 105 111 67 118 104 117 60 131 107 112 53</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
@@ -455,11 +452,11 @@
             <inputs>
                 <tool>
                     <name>ICCARM</name>
-                    <file> 71 69 27 46 51 80 114 70 64 55 47 68 61 99 73 102 33 81 49 78 82 86 29 98 125 40 30 45 63 129 52 84 110 105 111 67 118 104 117 60 131 107 112 18</file>
+                    <file> 71 69 27 46 51 80 114 70 64 55 47 68 61 99 73 102 33 81 49 78 82 86 29 98 125 40 30 45 63 129 52 84 110 105 111 67 118 104 117 60 131 107 112 146</file>
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 30 51 67 64 81 102 69 60 29 129 78 47 55 80 105 104 107 27 46 125 45 52 70 82 18 110 111 118 117 131 112 86 114 49 73 68 61 99 33 98 40 63 84 71</file>
+                    <file> 30 51 67 64 81 102 69 60 29 129 78 47 55 105 104 107 27 46 125 45 52 70 82 80 146 110 111 118 117 131 112 86 114 49 73 68 61 99 33 98 40 63 84 71</file>
                 </tool>
             </inputs>
         </file>
@@ -721,7 +718,7 @@
                 </tool>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 49 125 46 81 102 52 80 114 64 47 27 45 82 29 69 70 30 129 78 55 51 18 73 68 61 99 33 86 98 40 63 84</file>
+                    <file> 64 125 52 69 81 102 29 70 47 27 46 45 82 80 114 49 30 129 78 55 51 18 73 68 61 99 33 86 98 40 63 84</file>
                 </tool>
             </inputs>
         </file>

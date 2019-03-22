@@ -1196,10 +1196,7 @@
         <group>
             <name>User</name>
             <file>
-                <name>$PROJ_DIR$\..\Src\lcd.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\..\Inc\lcd.h</name>
+                <name>$PROJ_DIR$\..\Inc\lcd_cfg.h</name>
             </file>
             <file>
                 <name>$PROJ_DIR$\..\Src\main.c</name>
