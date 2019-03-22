@@ -1007,7 +1007,7 @@
                 </option>
                 <option>
                     <name>IlinkTrustzoneImportLibraryOut</name>
-                    <state>###Unitialized###</state>
+                    <state>LAB5_CH4F100_import_lib.o</state>
                 </option>
                 <option>
                     <name>OILinkExtraOption</name>
@@ -1052,6 +1052,15 @@
         </group>
         <group>
             <name>User</name>
+            <file>
+                <name>$PROJ_DIR$\..\Inc\global.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Src\hd44780.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\..\Inc\hd44780.h</name>
+            </file>
             <file>
                 <name>$PROJ_DIR$\..\Inc\lcd_cfg.h</name>
             </file>

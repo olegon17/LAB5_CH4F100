@@ -23,7 +23,8 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lcd.h"
+#include "hd44780.h"
+#include "global.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -269,21 +270,21 @@ void TIM6_DAC_IRQHandler(void)
 		int Min=minute;
 		int Sec=second;
 
-		Lcd_goto(1,8);//??????? ????? ???????
+		lcdGoto(1,8);//??????? ????? ???????
 		clockTime(Hour/10);
-		Lcd_goto(1,9);
+		lcdGoto(1,9);
 		clockTime(Hour%10);
-		Lcd_goto(1,10);
-		Lcd_write_str(":");
-		Lcd_goto(1,11);
+		lcdGoto(1,10);
+		lcdPuts(":");
+		lcdGoto(1,11);
 		clockTime(Min/10);
-		Lcd_goto(1,12);
+		lcdGoto(1,12);
 		clockTime(Min%10);
-		Lcd_goto(1,13);
-		Lcd_write_str(":");
-		Lcd_goto(1,14);
+		lcdGoto(1,13);
+		lcdPuts(":");
+		lcdGoto(1,14);
 		clockTime(Sec/10);
-		Lcd_goto(1,15);
+		lcdGoto(1,15);
 		clockTime(Sec%10);
 	}
 	if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)/*GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1)*/==0)//???? ?????? ??????
@@ -292,21 +293,21 @@ void TIM6_DAC_IRQHandler(void)
 		int Min=minute;
 		int Sec=second;
 
-		Lcd_goto(2,8);//??????? ????? ???????
+		lcdGoto(2,8);//??????? ????? ???????
 		clockTime(Hour/10);
-		Lcd_goto(2,9);
+		lcdGoto(2,9);
 		clockTime(Hour%10);
-		Lcd_goto(2,10);
-		Lcd_write_str(":");
-		Lcd_goto(2,11);
+		lcdGoto(2,10);
+		lcdPuts(":");
+		lcdGoto(2,11);
 		clockTime(Min/10);
-		Lcd_goto(2,12);
+		lcdGoto(2,12);
 		clockTime(Min%10);
-		Lcd_goto(2,13);
-		Lcd_write_str(":");
-		Lcd_goto(2,14);
+		lcdGoto(2,13);
+		lcdPuts(":");
+		lcdGoto(2,14);
 		clockTime(Sec/10);
-		Lcd_goto(2,15);
+		lcdGoto(2,15);
 		clockTime(Sec%10);
 	}
   /* USER CODE END TIM6_DAC_IRQn 0 */
@@ -324,21 +325,21 @@ void TIM7_IRQHandler(void)
   /* USER CODE BEGIN TIM7_IRQn 0 */
 //TIM_ClearITPendingBit(TIM2, TIM_IT_Update);//??????? ??? ??????????
 
-	Lcd_goto(0,8);
+	lcdGoto(0,8);
 	clockTime(hours/10);
-	Lcd_goto(0,9);
+	lcdGoto(0,9);
 	clockTime(hours%10);
-	Lcd_goto(0,10);
-	Lcd_write_str(":");
-	Lcd_goto(0,11);
+	lcdGoto(0,10);
+	lcdPuts(":");
+	lcdGoto(0,11);
 	clockTime(minute/10);
-	Lcd_goto(0,12);
+	lcdGoto(0,12);
 	clockTime(minute%10);
-	Lcd_goto(0,13);
-	Lcd_write_str(":");
-	Lcd_goto(0,14);
+	lcdGoto(0,13);
+	lcdPuts(":");
+	lcdGoto(0,14);
 	clockTime(second/10);
-	Lcd_goto(0,15);
+	lcdGoto(0,15);
 	clockTime(second%10);
   /* USER CODE END TIM7_IRQn 0 */
   HAL_TIM_IRQHandler(&htim7);
