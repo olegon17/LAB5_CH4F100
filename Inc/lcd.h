@@ -2,31 +2,49 @@
 #include "stm32f1xx_hal_gpio.h"
 #include "stm32f1xx_hal_rcc.h"
 #include "stm32f1xx_hal_tim.h"
-
+/*
 #define port    	GPIOB
 #define init_port 	RCC_APB2Periph_GPIOB
 #define pin_e 		GPIO_Pin_10
 #define pin_rw		GPIO_Pin_11
 #define pin_rs		GPIO_Pin_12
-
+*/
 #define lcd_shift	6			///????? ??????????? ???? ? 4-? ?????? ????
 #define use_gpio	GPIO_Pin_9  //??????? ???								9
+/*
 #define pin_d7		use_gpio    //??????? ???								9
 #define pin_d6		use_gpio>>1 //????????? ??? ?? ????????					8
 #define pin_d5		use_gpio>>2 //????????? ??? ?? ????????					7
 #define pin_d4		use_gpio>>3 //????????? ??? ? 4-? ?????? ????			6
-
+*/
 #define Function_set 				0b00100000//4-bit,2 - line mode, 5*8 dots
 #define Display_on_off_control		0b00001111/// display on,cursor off,blink off
 #define Display_clear				0b00000001
 #define Entry_mode_set				0b00000100//
-
+/*
 #define rs_1	port->ODR |=  pin_rs
 #define rs_0	port->ODR &=~ pin_rs
 #define e_1 	port->ODR |=  pin_e
 #define e_0		port->ODR &=~ pin_e
 #define rw_1	port->ODR |=  pin_rw
 #define rw_0	port->ODR &=~ pin_rw
+*/
+#define rs_1	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_6 
+                          |GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_SET);
+#define rs_0	port->ODR &=~ pin_rs
+#define e_1 	port->ODR |=  pin_e
+#define e_0		port->ODR &=~ pin_e
+#define rw_1	port->ODR |=  pin_rw
+#define rw_0	port->ODR &=~ pin_rw
+
+#define RS	GPIO_PIN_12
+#define RW	GPIO_PIN_11
+#define E 	GPIO_PIN_10
+#define PORT	GPIOB
+#define D4	GPIO_PIN_4
+#define D5	GPIO_PIN_5
+#define D6	GPIO_PIN_6
+#define D7	GPIO_PIN_7
 //u32 del;
 //uint32_t
 unsigned int del;

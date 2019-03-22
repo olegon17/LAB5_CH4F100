@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "C:\Users\Morozov\Documents\LAB5_CH4F100\EWARM\settings\LAB5_CH4F100.LAB5_CH4F100.general.xcl" --backend -f "C:\Users\Morozov\Documents\LAB5_CH4F100\EWARM\settings\LAB5_CH4F100.LAB5_CH4F100.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "C:\Users\Morozov\Documents\GitHub\LAB5_CH4F100\EWARM\settings\LAB5_CH4F100.LAB5_CH4F100.general.xcl" --backend -f "C:\Users\Morozov\Documents\GitHub\LAB5_CH4F100\EWARM\settings\LAB5_CH4F100.LAB5_CH4F100.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "C:\Users\Morozov\Documents\LAB5_CH4F100\EWARM\settings\LAB5_CH4F100.LAB5_CH4F100.general.xcl" --debug_file=$debugfile --backend -f "C:\Users\Morozov\Documents\LAB5_CH4F100\EWARM\settings\LAB5_CH4F100.LAB5_CH4F100.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "C:\Users\Morozov\Documents\GitHub\LAB5_CH4F100\EWARM\settings\LAB5_CH4F100.LAB5_CH4F100.general.xcl" --debug_file=$debugfile --backend -f "C:\Users\Morozov\Documents\GitHub\LAB5_CH4F100\EWARM\settings\LAB5_CH4F100.LAB5_CH4F100.driver.xcl" 
 }
