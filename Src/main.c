@@ -23,7 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lcd.h"
+#include "hd44780.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,8 +43,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 
-TIM_HandleTypeDef htim7;
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -52,16 +50,14 @@ TIM_HandleTypeDef htim7;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_RTC_Init(void);
-static void MX_TIM6_Init(void);
-static void MX_TIM7_Init(void);
+static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+unsigned char men1[FONT_HEIGHT] = {0x0e,0x0e,0x04,0x1f,0x04,0x1a,0x01,0x00};
 /* USER CODE END 0 */
 
 /**
@@ -92,34 +88,30 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_RTC_Init();
-  MX_TIM6_Init();
-  MX_TIM7_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+//SystemInit();
+    
+	lcdInit();
+	lcdClrScr();
+	//lcdLoadChar(smile,0x06);//??????????? ???????????????? ?????? ?? ?????????? ??????
+	lcdLoadChar(men1,6);
 
-
-
+	lcdGoto(1,0);//? ?????? ??????
+	lcdPuts("Morozov");//?????? ???????
+	lcdGoto(2,0);//?? ?????? ??????
+	lcdPuts("Syrotuk");//?????? ???????
+	lcdGoto(3,0);//? ?????? ??????
+	lcdPuts("UrakanOFF");//?????? ???????
+	
+	lcdGoto(4,15);//? ? ????????? ?????? ??????
+	lcdPutc(0x06);//??????? ?????? ???
+        LL_TIM_EnableIT_UPDATE(TIM1);
+   LL_TIM_EnableCounter(TIM1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SystemInit();
-	Init_lcd();//????????????? ??????
-	Lcd_clear();//??????? ??????
-//	Lcd_definechar(smile,0x06);//??????????? ???????????????? ?????? ?? ?????????? ??????
-	
-
-	Lcd_goto(0,0);//? ?????? ??????
-	Lcd_write_str("??????");//?????? ???????
-	Lcd_goto(1,0);//?? ?????? ??????
-	Lcd_write_str("??????");//?????? ???????
-	Lcd_goto(2,0);//? ?????? ??????
-	Lcd_write_str("???????");//?????? ???????
-	Lcd_goto(3,0);// ? ????????? ??????
-	Lcd_write_str("????????");//????????? ???????
-	Lcd_goto(3,9);//? ? ????????? ?????? ??????
-	Lcd_write_data(0x06);//??????? ?????? ???
-
   while (1)
   {
     /* USER CODE END WHILE */
@@ -143,18 +135,6 @@ void SystemClock_Config(void)
   {
     
   }
-  LL_RCC_LSI_Enable();
-
-   /* Wait till LSI is ready */
-  while(LL_RCC_LSI_IsReady() != 1)
-  {
-    
-  }
-  LL_PWR_EnableBkUpAccess();
-  LL_RCC_ForceBackupDomainReset();
-  LL_RCC_ReleaseBackupDomainReset();
-  LL_RCC_SetRTCClockSource(LL_RCC_RTC_CLKSOURCE_LSI);
-  LL_RCC_EnableRTC();
   LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
   LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
   LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
@@ -171,115 +151,46 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief RTC Initialization Function
+  * @brief TIM1 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_RTC_Init(void)
+static void MX_TIM1_Init(void)
 {
 
-  /* USER CODE BEGIN RTC_Init 0 */
+  /* USER CODE BEGIN TIM1_Init 0 */
 
-  /* USER CODE END RTC_Init 0 */
-
-  LL_RTC_InitTypeDef RTC_InitStruct = {0};
-
-    LL_PWR_EnableBkUpAccess();
-    /* Enable BKP CLK enable for backup registers */
-    LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_BKP);
-  /* Peripheral clock enable */
-  LL_RCC_EnableRTC();
-
-  /* RTC interrupt Init */
-  NVIC_SetPriority(RTC_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
-  NVIC_EnableIRQ(RTC_IRQn);
-
-  /* USER CODE BEGIN RTC_Init 1 */
-
-  /* USER CODE END RTC_Init 1 */
-  /** Initialize RTC and set the Time and Date 
-  */
-  RTC_InitStruct.AsynchPrescaler = 0xFFFFFFFFU;
-  LL_RTC_Init(RTC, &RTC_InitStruct);
-  LL_RTC_SetAsynchPrescaler(RTC, 0xFFFFFFFFU);
-  /* USER CODE BEGIN RTC_Init 2 */
-
-  /* USER CODE END RTC_Init 2 */
-
-}
-
-/**
-  * @brief TIM6 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_TIM6_Init(void)
-{
-
-  /* USER CODE BEGIN TIM6_Init 0 */
-
-  /* USER CODE END TIM6_Init 0 */
+  /* USER CODE END TIM1_Init 0 */
 
   LL_TIM_InitTypeDef TIM_InitStruct = {0};
 
   /* Peripheral clock enable */
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM6);
+  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_TIM1);
 
-  /* TIM6 interrupt Init */
-  NVIC_SetPriority(TIM6_DAC_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
-  NVIC_EnableIRQ(TIM6_DAC_IRQn);
+  /* TIM1 interrupt Init */
+  NVIC_SetPriority(TIM1_UP_TIM16_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
+  NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
 
-  /* USER CODE BEGIN TIM6_Init 1 */
+  /* USER CODE BEGIN TIM1_Init 1 */
 
-  /* USER CODE END TIM6_Init 1 */
-  TIM_InitStruct.Prescaler = 100;
+  /* USER CODE END TIM1_Init 1 */
+  TIM_InitStruct.Prescaler = 7999;
   TIM_InitStruct.CounterMode = LL_TIM_COUNTERMODE_UP;
-  TIM_InitStruct.Autoreload = 100;
-  LL_TIM_Init(TIM6, &TIM_InitStruct);
-  LL_TIM_DisableARRPreload(TIM6);
-  LL_TIM_SetTriggerOutput(TIM6, LL_TIM_TRGO_RESET);
-  LL_TIM_DisableMasterSlaveMode(TIM6);
-  /* USER CODE BEGIN TIM6_Init 2 */
+  TIM_InitStruct.Autoreload = 1000;
+  TIM_InitStruct.ClockDivision = LL_TIM_CLOCKDIVISION_DIV1;
+  TIM_InitStruct.RepetitionCounter = 0;
+  LL_TIM_Init(TIM1, &TIM_InitStruct);
+  LL_TIM_DisableARRPreload(TIM1);
+  LL_TIM_SetClockSource(TIM1, LL_TIM_CLOCKSOURCE_INTERNAL);
+  LL_TIM_SetTriggerInput(TIM1, LL_TIM_TS_ITR0);
+  LL_TIM_SetSlaveMode(TIM1, LL_TIM_SLAVEMODE_DISABLED);
+  LL_TIM_DisableIT_TRIG(TIM1);
+  LL_TIM_DisableDMAReq_TRIG(TIM1);
+  LL_TIM_SetTriggerOutput(TIM1, LL_TIM_TRGO_RESET);
+  LL_TIM_DisableMasterSlaveMode(TIM1);
+  /* USER CODE BEGIN TIM1_Init 2 */
 
-  /* USER CODE END TIM6_Init 2 */
-
-}
-
-/**
-  * @brief TIM7 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_TIM7_Init(void)
-{
-
-  /* USER CODE BEGIN TIM7_Init 0 */
-
-  /* USER CODE END TIM7_Init 0 */
-
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
-
-  /* USER CODE BEGIN TIM7_Init 1 */
-
-  /* USER CODE END TIM7_Init 1 */
-  htim7.Instance = TIM7;
-  htim7.Init.Prescaler = 7999;
-  htim7.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim7.Init.Period = 1000;
-  htim7.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim7) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim7, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM7_Init 2 */
-
-  /* USER CODE END TIM7_Init 2 */
+  /* USER CODE END TIM1_Init 2 */
 
 }
 
@@ -303,8 +214,8 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : PA0 PA1 */
   GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PB10 PB11 PB12 PB6 
@@ -313,7 +224,7 @@ static void MX_GPIO_Init(void)
                           |GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/

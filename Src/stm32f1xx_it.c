@@ -23,7 +23,8 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "lcd.h"
+#include "hd44780.h"
+#include "global.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,7 +58,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern TIM_HandleTypeDef htim7;
+
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -199,13 +200,95 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles RTC global interrupt.
+  * @brief This function handles EXTI line0 interrupt.
   */
-void RTC_IRQHandler(void)
+void EXTI0_IRQHandler(void)
 {
-  /* USER CODE BEGIN RTC_IRQn 0 */
-//TIM_ClearITPendingBit(TIM3, TIM_IT_Update);//??????? ??? ??????????
+  /* USER CODE BEGIN EXTI0_IRQn 0 */
+  int Hour=hours;//???????????? ??????? ?????
+		int Min=minute;
+		int Sec=second;
+
+		lcdGoto(1,8);//??????? ????? ???????
+		clockTime(Hour/10);
+		lcdGoto(1,9);
+		clockTime(Hour%10);
+		lcdGoto(1,10);
+		lcdPuts(":");
+		lcdGoto(1,11);
+		clockTime(Min/10);
+		lcdGoto(1,12);
+		clockTime(Min%10);
+		lcdGoto(1,13);
+		lcdPuts(":");
+		lcdGoto(1,14);
+		clockTime(Sec/10);
+		lcdGoto(1,15);
+		clockTime(Sec%10);
+  /* USER CODE END EXTI0_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
+  /* USER CODE BEGIN EXTI0_IRQn 1 */
+
+  /* USER CODE END EXTI0_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line1 interrupt.
+  */
+void EXTI1_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI1_IRQn 0 */
+  int Hour=hours;//???????????? ??????? ?????
+		int Min=minute;
+		int Sec=second;
+
+		lcdGoto(2,8);//??????? ????? ???????
+		clockTime(Hour/10);
+		lcdGoto(2,9);
+		clockTime(Hour%10);
+		lcdGoto(2,10);
+		lcdPuts(":");
+		lcdGoto(2,11);
+		clockTime(Min/10);
+		lcdGoto(2,12);
+		clockTime(Min%10);
+		lcdGoto(2,13);
+		lcdPuts(":");
+		lcdGoto(2,14);
+		clockTime(Sec/10);
+		lcdGoto(2,15);
+		clockTime(Sec%10);
+  /* USER CODE END EXTI1_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
+  /* USER CODE BEGIN EXTI1_IRQn 1 */
+
+  /* USER CODE END EXTI1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM1 update interrupt and TIM16 global interrupt.
+  */
+void TIM1_UP_TIM16_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
+  LL_TIM_ClearFlag_UPDATE(TIM1);
   
+  lcdGoto(4,0);
+	clockTime(hours/10);
+	//lcdGoto(4,1);
+	clockTime(hours%10);
+	//lcdGoto(4,10);
+	lcdPuts(":");
+	//lcdGoto(4,11);
+	clockTime(minute/10);
+	//lcdGoto(4,12);
+	clockTime(minute%10);
+	//lcdGoto(4,13);
+	lcdPuts(":");
+	//lcdGoto(4,14);
+	clockTime(second/10);
+	//lcdGoto(4,15);
+	clockTime(second%10);
 	second++;//??????????? ???????
 	if(second>59)//??????? ???????? ?????
 	{
@@ -221,130 +304,12 @@ void RTC_IRQHandler(void)
 			}
 		}
 	}
-  /* USER CODE END RTC_IRQn 0 */
-  /* USER CODE BEGIN RTC_IRQn 1 */
-
-  /* USER CODE END RTC_IRQn 1 */
-}
-
-/**
-  * @brief This function handles EXTI line0 interrupt.
-  */
-void EXTI0_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI0_IRQn 0 */
-
-  /* USER CODE END EXTI0_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_0);
-  /* USER CODE BEGIN EXTI0_IRQn 1 */
-
-  /* USER CODE END EXTI0_IRQn 1 */
-}
-
-/**
-  * @brief This function handles EXTI line1 interrupt.
-  */
-void EXTI1_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI1_IRQn 0 */
-
-  /* USER CODE END EXTI1_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_1);
-  /* USER CODE BEGIN EXTI1_IRQn 1 */
-
-  /* USER CODE END EXTI1_IRQn 1 */
-}
-
-/**
-  * @brief This function handles TIM6 global interrupt and DAC underrun error interrupts.
-  */
-void TIM6_DAC_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
-//TIM_ClearITPendingBit(TIM4, TIM_IT_Update);//??????? ??? ??????????
-
-	if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_0)/*GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)*/==0)//???? ?????? ??????
-	{
-		int Hour=hours;//???????????? ??????? ?????
-		int Min=minute;
-		int Sec=second;
-
-		Lcd_goto(1,8);//??????? ????? ???????
-		clockTime(Hour/10);
-		Lcd_goto(1,9);
-		clockTime(Hour%10);
-		Lcd_goto(1,10);
-		Lcd_write_str(":");
-		Lcd_goto(1,11);
-		clockTime(Min/10);
-		Lcd_goto(1,12);
-		clockTime(Min%10);
-		Lcd_goto(1,13);
-		Lcd_write_str(":");
-		Lcd_goto(1,14);
-		clockTime(Sec/10);
-		Lcd_goto(1,15);
-		clockTime(Sec%10);
-	}
-	if(HAL_GPIO_ReadPin(GPIOA,GPIO_PIN_1)/*GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_1)*/==0)//???? ?????? ??????
-	{
-		int Hour=hours;//???????????? ??????? ?????
-		int Min=minute;
-		int Sec=second;
-
-		Lcd_goto(2,8);//??????? ????? ???????
-		clockTime(Hour/10);
-		Lcd_goto(2,9);
-		clockTime(Hour%10);
-		Lcd_goto(2,10);
-		Lcd_write_str(":");
-		Lcd_goto(2,11);
-		clockTime(Min/10);
-		Lcd_goto(2,12);
-		clockTime(Min%10);
-		Lcd_goto(2,13);
-		Lcd_write_str(":");
-		Lcd_goto(2,14);
-		clockTime(Sec/10);
-		Lcd_goto(2,15);
-		clockTime(Sec%10);
-	}
-  /* USER CODE END TIM6_DAC_IRQn 0 */
+        
+  /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
   
-  /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+  /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 1 */
 
-  /* USER CODE END TIM6_DAC_IRQn 1 */
-}
-
-/**
-  * @brief This function handles TIM7 global interrupt.
-  */
-void TIM7_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM7_IRQn 0 */
-//TIM_ClearITPendingBit(TIM2, TIM_IT_Update);//??????? ??? ??????????
-
-	Lcd_goto(0,8);
-	clockTime(hours/10);
-	Lcd_goto(0,9);
-	clockTime(hours%10);
-	Lcd_goto(0,10);
-	Lcd_write_str(":");
-	Lcd_goto(0,11);
-	clockTime(minute/10);
-	Lcd_goto(0,12);
-	clockTime(minute%10);
-	Lcd_goto(0,13);
-	Lcd_write_str(":");
-	Lcd_goto(0,14);
-	clockTime(second/10);
-	Lcd_goto(0,15);
-	clockTime(second%10);
-  /* USER CODE END TIM7_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim7);
-  /* USER CODE BEGIN TIM7_IRQn 1 */
-
-  /* USER CODE END TIM7_IRQn 1 */
+  /* USER CODE END TIM1_UP_TIM16_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
